@@ -28,7 +28,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int selectedIndex = 0;
 
-  void _onItemTapped(int index) {
+  void onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
     });
@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
           currentIndex: selectedIndex,
           selectedItemColor: Colors.red,
-          onTap: _onItemTapped,
+          onTap: onItemTapped,
         ),
       ),
     );
