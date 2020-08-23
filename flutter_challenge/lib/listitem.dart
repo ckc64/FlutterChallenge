@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+
 class ListItem extends StatefulWidget {
   @override
   _ListItemState createState() => _ListItemState();
@@ -11,66 +11,68 @@ class _ListItemState extends State<ListItem> {
     return ListView(
       scrollDirection: Axis.vertical,
       children: <Widget>[
-          ItemFullDetails(textTitle: "Item 1",textInfo: "This is item one",imageText: "assets/img/img-1.jpg"),
-          ItemFullDetails(textTitle: "Item 2",textInfo: "This is item two",imageText: "assets/img/img-2.jpg"),
-          ItemFullDetails(textTitle: "Item 3",textInfo: "This is item three",imageText: "assets/img/img-3.jpg"),
+        ItemFullDetails(
+            textTitle: "Item 1",
+            textInfo: "This is item 1",
+            imageText: "assets/img/img-1.jpg"),
+        ItemFullDetails(
+            textTitle: "Item 2",
+            textInfo: "This is item 2",
+            imageText: "assets/img/img-2.jpg"),
+        ItemFullDetails(
+            textTitle: "Item 3",
+            textInfo: "This is item 3",
+            imageText: "assets/img/img-3.jpg"),
       ],
     );
   }
 }
 
-
-//LIST VIEW ITEMS
-Widget ItemsText({String textTitle,String textInfo}){
+//LIST VIEW ITEMS DETAILS
+Widget ItemsText({String textTitle, String textInfo}) {
   return Column(
-
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-        Container(child: Text(textTitle,
-          style: TextStyle(fontSize: 8.0),)),
-      Container(child: Text(textInfo,
-        style: TextStyle(fontSize: 6.0),)),
+      Padding(
+        padding: EdgeInsets.only(right: 5),
+        child: Text(textTitle, style: TextStyle(fontSize: 3)),
+      ),
+      Padding(
+        padding: EdgeInsets.only(right: 5),
+        child: Text(textInfo, style: TextStyle(fontSize: 2)),
+      ),
     ],
   );
-
 }
 
-Widget ItemFullDetails({String textTitle,String textInfo,String imageText}){
+Widget ItemFullDetails({String textTitle, String textInfo, String imageText}) {
   return Padding(
     padding: EdgeInsets.all(10.0),
     child: Container(
-   width: 150,
-    child:FittedBox(
-      child: Material(
-        color:  Colors.white,
-        borderRadius: BorderRadius.circular(24.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-
-            ItemsText(textTitle: textTitle, textInfo: textInfo),
-
-            Container(
-              width: 50,
-                height: 50,
+      child: FittedBox(
+        child: Material(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(24.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              ItemsText(textTitle: textTitle, textInfo: textInfo),
+              Container(
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: BorderRadius.circular(1.0),
                   child: Image.asset(
                     imageText,
-                   width: 100,
-                    height: 100,
+                    width: 20,
+                    height: 20,
                     fit: BoxFit.fill,
                   ),
                 ),
-
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
-
-
-
       ),
     ),
-    ),
-
   );
 }
