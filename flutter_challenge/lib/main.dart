@@ -1,7 +1,14 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_challenge/connectivity/connectivity.dart';
 import 'package:flutter_challenge/listitem.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 
+import 'checker.dart';
+
+final checker = Checker();
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -19,14 +26,29 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int selectedIndex = 0;
+  ReactionDisposer _disposer;
+  static bool isOnline = false;
+  ConnectivityStore connectivityStore;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    connectivityStore = new ConnectivityStore();
+    _disposer =
+        reaction((_) => connectivityStore.connectivityStream.value, (result) {
+      if (result != ConnectionState.none) {
+        checker.change();
+      }
+    }, delay: 2000);
+  }
 
   void onItemTapped(int index) {
     setState(() {
@@ -34,12 +56,22 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  @override
+  void dispose() {
+    _disposer();
+    super.dispose();
+  }
+
   //BOTTOM NAVIGATION ITEM
   List<Widget> widgetOptions = <Widget>[
     Text(
       'Home',
     ),
-    ListItem(),
+    Observer(
+      builder: (_) => checker.isOnline
+          ? ListItem()
+          : Text("Can't fetch data. Check your connection."),
+    ),
     Text(
       'Chat',
     ),
@@ -56,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           backgroundColor: Colors.black,
           title: Row(

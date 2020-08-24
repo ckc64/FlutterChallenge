@@ -1,0 +1,46 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'checker.dart';
+
+// **************************************************************************
+// StoreGenerator
+// **************************************************************************
+
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+
+mixin _$Checker on _Checker, Store {
+  final _$isOnlineAtom = Atom(name: '_Checker.isOnline');
+
+  @override
+  bool get isOnline {
+    _$isOnlineAtom.reportRead();
+    return super.isOnline;
+  }
+
+  @override
+  set isOnline(bool value) {
+    _$isOnlineAtom.reportWrite(value, super.isOnline, () {
+      super.isOnline = value;
+    });
+  }
+
+  final _$_CheckerActionController = ActionController(name: '_Checker');
+
+  @override
+  void change() {
+    final _$actionInfo =
+        _$_CheckerActionController.startAction(name: '_Checker.change');
+    try {
+      return super.change();
+    } finally {
+      _$_CheckerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  String toString() {
+    return '''
+isOnline: ${isOnline}
+    ''';
+  }
+}
