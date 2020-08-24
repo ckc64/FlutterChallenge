@@ -5,7 +5,7 @@ import 'package:flutter_challenge/connectivity/connectivity.dart';
 import 'package:flutter_challenge/listitem.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
-
+import 'package:flutter_challenge/bottomnavigationbar.dart';
 import 'checker.dart';
 
 final checker = Checker();
@@ -39,8 +39,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
+    //checker if user is current online or not
     connectivityStore = new ConnectivityStore();
     _disposer =
         reaction((_) => connectivityStore.connectivityStream.value, (result) {
@@ -49,7 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }, delay: 2000);
   }
-
+  
+  //for bottom navigation bar
   void onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
@@ -67,6 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Text(
       'Home',
     ),
+    //display item based on user connectivity
     Observer(
       builder: (_) => checker.isOnline
           ? ListItem()
@@ -136,35 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
 
-        bottomNavigationBar: BottomNavigationBar(
-          unselectedItemColor: Colors.grey,
-          showUnselectedLabels: true,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text("Home"),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.explore),
-              title: Text("Explore"),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat),
-              title: Text("Chat"),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              title: Text("Search"),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              title: Text("My App"),
-            ),
-          ],
-          currentIndex: selectedIndex,
-          selectedItemColor: Colors.red,
-          onTap: onItemTapped,
-        ),
+        bottomNavigationBar: bottomNavigation(currentSelectedIndex: selectedIndex,onTap: onItemTapped),
       ),
     );
   }

@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 
 class ListItem extends StatefulWidget {
 
-  final bool isOnline;
-
-  const ListItem({Key key, this.isOnline}) : super(key: key);
   @override
   _ListItemState createState() => _ListItemState();
 }
